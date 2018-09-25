@@ -1,8 +1,8 @@
 # Next.js + Custom babel config file
 
-Adds the ability to supply a custom `babel.config.js` to next.js projects. Useful if you wish to use a monorepo / yarn workspaces project setup in combination with next.js.
+Adds the ability to supply a custom `babel.config.js` to next.js projects. Useful if you wish to use a monorepo / yarn workspaces project setup in combination with next.js where a shared `babel.config.js` is used. [More reading](https://babeljs.io/docs/en/config-files#project-wide-configuration)
 
-> This plugin intends to be used with next.js > 7.0.0
+> This plugin is intended to be used with next.js > 7.0.0
 
 ## Installation
 
@@ -44,7 +44,7 @@ module.exports = withCustomBabelConfigFile({
 
 ## I need to transpile my workspaces
 
-Use the handy `next-plugin-transpile-modules` package as follows:
+If you want to import source files from your workspaces, or need to transpile any files inside `node_modules`, Use the handy `next-plugin-transpile-modules` package in conjunction with this one as follows:
 
 ```js
 // ui/next.config.js
@@ -54,7 +54,7 @@ const withCustomBabelConfigFile = require('next-plugin-custom-babel-config');
 
 module.exports = withCustomBabelConfigFile(
   withTranspileModules({
-    transpileModules: ['@org', 'another_module'],
+    transpileModules: ['@org/api-workspace'],
     babelConfigFile: path.resolve('../babel.config.js')
   })
 );

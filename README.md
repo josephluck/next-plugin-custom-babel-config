@@ -1,5 +1,7 @@
 # Next.js + Custom babel config file
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/josephluck/next-plugin-custom-babel-config.svg)](https://greenkeeper.io/)
+
 Adds the ability to supply a custom `babel.config.js` to next.js projects. Useful if you wish to use a monorepo / yarn workspaces project setup in combination with next.js where a shared `babel.config.js` is used. [More reading](https://babeljs.io/docs/en/config-files#project-wide-configuration)
 
 > This plugin is intended to be used with next.js > 7.0.0

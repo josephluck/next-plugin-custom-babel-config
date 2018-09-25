@@ -1,0 +1,22 @@
+{
+  "name": "next-plugin-custom-babel-config",
+  "version": "1.0.0",
+  "description": "Adds the ability to resolve a custom babel config file when using next.js",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Joseph Luck",
+  "repository": "jospehluck/next-plugin-custom-babel-config",
+  "bugs": "https://github.com/josephluck/next-plugin-custom-babel-config/issues",
+  "homepage": "https://github.com/josephluck/next-plugin-custom-babel-config",
+  "keywords": [
+    "next",
+    "next.js",
+    "config",
+    "babel",
+    "webpack",
+    "modules"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

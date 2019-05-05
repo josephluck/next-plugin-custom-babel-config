@@ -4,6 +4,8 @@ Adds the ability to supply a custom `babel.config.js` to next.js projects. Usefu
 
 > This plugin is intended to be used with next.js > 7.0.0
 
+If you like it, give it a [star](https://github.com/josephluck/next-plugin-custom-babel-config)!
+
 ## Installation
 
 ```
@@ -32,13 +34,15 @@ Given the directory structure:
 - package.json
 ```
 
+Wrap your config in the plugin in your `next.config.js` file:
+
 ```js
 // ui/next.config.js
-const path = require('path');
-const withCustomBabelConfigFile = require('next-plugin-custom-babel-config');
+const path = require("path");
+const withCustomBabelConfigFile = require("next-plugin-custom-babel-config");
 
 module.exports = withCustomBabelConfigFile({
-  babelConfigFile: path.resolve('../babel.config.js')
+  babelConfigFile: path.resolve("../babel.config.js")
 });
 ```
 
@@ -48,14 +52,14 @@ If you want to import source files from your workspaces, or need to transpile an
 
 ```js
 // ui/next.config.js
-const path = require('path');
-const withTranspileModules = require('next-plugin-transpile-modules');
-const withCustomBabelConfigFile = require('next-plugin-custom-babel-config');
+const path = require("path");
+const withTranspileModules = require("next-plugin-transpile-modules");
+const withCustomBabelConfigFile = require("next-plugin-custom-babel-config");
 
 module.exports = withCustomBabelConfigFile(
   withTranspileModules({
-    transpileModules: ['@org/api-workspace'],
-    babelConfigFile: path.resolve('../babel.config.js')
+    transpileModules: ["@org/api-workspace"],
+    babelConfigFile: path.resolve("../babel.config.js")
   })
 );
 ```

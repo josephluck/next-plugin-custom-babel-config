@@ -7,9 +7,14 @@ module.exports = function(nextConfig) {
         throw new Error('No babelConfigFile option found. Please add babelConfigFile to your next.config.js, for example: withMonorepo({ babelConfigFile: path.resolve("../babel.config.js") })')
       }
       config.module.rules.forEach((rule) => {
-        if (rule.use && rule.use.loader === 'next-babel-loader') {
-          rule.use.options.configFile = nextConfig.babelConfigFile;
-        }
+        if (rule.use) {
+          if (Array.isArray(rule.use)) {
+            const babelLoader = rule.use.find(use => typeof use === 'object' && use.loader === 'next-babel-loader');
+            babelLoader.options.configFile = nextConfig.babelConfigFile;
+          } else if (rule.use.loader === 'next-babel-loader') {
+            rule.use.options.configFile = nextConfig.babelConfigFile;
+          }
+        } 
       });
 
       if (typeof nextConfig.webpack === "function") {

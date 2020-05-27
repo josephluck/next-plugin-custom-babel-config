@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = function(nextConfig) {
+module.exports = function (nextConfig) {
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
       if (!nextConfig.babelConfigFile) {
@@ -10,11 +10,13 @@ module.exports = function(nextConfig) {
         if (rule.use) {
           if (Array.isArray(rule.use)) {
             const babelLoader = rule.use.find(use => typeof use === 'object' && use.loader === 'next-babel-loader');
-            babelLoader.options.configFile = nextConfig.babelConfigFile;
+            if (babelLoader && babelLoader.options) {
+              babelLoader.options.configFile = nextConfig.babelConfigFile;
+            }
           } else if (rule.use.loader === 'next-babel-loader') {
             rule.use.options.configFile = nextConfig.babelConfigFile;
           }
-        } 
+        }
       });
 
       if (typeof nextConfig.webpack === "function") {

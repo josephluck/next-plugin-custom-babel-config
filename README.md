@@ -1,3 +1,5 @@
+# ⚠️ I am no longer maintaining this plugin, but PRs for fixes are most welcome!
+
 # Next.js + Custom babel config file
 
 Adds the ability to supply a custom `babel.config.js` to next.js projects. Useful if you wish to use a monorepo / yarn workspaces project setup in combination with next.js where a shared `babel.config.js` is used. [More reading](https://babeljs.io/docs/en/config-files#project-wide-configuration)

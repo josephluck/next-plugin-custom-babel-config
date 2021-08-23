@@ -6,8 +6,6 @@ Adds the ability to supply a custom `babel.config.js` to next.js projects. Usefu
 
 > This plugin is intended to be used with next.js > 7.0.0
 
-**This plugin doesn't work with Next 11. PRs welcome!**
-
 If you like it, give it a [star](https://github.com/josephluck/next-plugin-custom-babel-config)!
 
 ## Installation

@@ -9,7 +9,7 @@ it('throws with no babelConfigFile', () => {
   }).toThrow('No babelConfigFile option found. Please add babelConfigFile to your next.config.js, for example: withMonorepo({ babelConfigFile: path.resolve("../babel.config.js") })')
 });
 
-it('adds the config when use is an object', () => {
+it('adds the config when use is an object - Next.js < 11', () => {
   const { webpack } = withCustomConfig({ babelConfigFile: BABEL_CONFIG_PATH });
   const config = {
     module: {
@@ -25,7 +25,32 @@ it('adds the config when use is an object', () => {
   expect(webpackConfig.module.rules[0].use.options.configFile).toBe(BABEL_CONFIG_PATH)
 });
 
-it('adds the config when use is an array', () => {
+it('adds the config when use is an object - Next.js >= 11', () => {
+  const { webpack } = withCustomConfig({ babelConfigFile: BABEL_CONFIG_PATH });
+  const config = {
+    module: {
+      rules: [
+        {
+          use: {
+            loader: '/absolute/path/to/project/node_modules/next/dist/build/babel/loader/index.js',
+            options: {},
+          },
+        },
+        {
+          use: {
+            loader: 'C:\\path\\on\\Windows\\node_modules\\next\\dist\\build\\babel\\loader\\index.js',
+            options: {},
+          },
+        },
+      ],
+    }
+  }
+  const webpackConfig = webpack(config);
+  expect(webpackConfig.module.rules[0].use.options.configFile).toBe(BABEL_CONFIG_PATH)
+  expect(webpackConfig.module.rules[1].use.options.configFile).toBe(BABEL_CONFIG_PATH)
+});
+
+it('adds the config when use is an array - Next.js < 11', () => {
   const { webpack } = withCustomConfig({ babelConfigFile: BABEL_CONFIG_PATH });
   const config = {
     module: {
@@ -47,10 +72,54 @@ it('adds the config when use is an array', () => {
               options: {},
             },
           ],
+        },
+      ],
+    }
+  }
+  const webpackConfig = webpack(config);
+  expect(webpackConfig.module.rules[0].use[1].options.configFile).toBe(BABEL_CONFIG_PATH)
+  // Ensure the non-babel loader has not been touched
+  expect(webpackConfig.module.rules[1].use[1].options.configFile).toBe(undefined)
+});
+
+it('adds the config when use is an array - Next.js >= 11', () => {
+  const { webpack } = withCustomConfig({ babelConfigFile: BABEL_CONFIG_PATH });
+  const config = {
+    module: {
+      rules: [
+        {
+          use: [
+            'some-other-loader',
+            {
+              loader: '/absolute/path/to/project/node_modules/next/dist/build/babel/loader/index.js',
+              options: {},
+            },
+          ],
+        },
+        {
+          use: [
+            'yet-another-loader',
+            {
+              loader: 'C:\\path\\on\\Windows\\node_modules\\next\\dist\\build\\babel\\loader\\index.js',
+              options: {},
+            },
+          ],
+        },
+        {
+          use: [
+            'css-loader',
+            {
+              loader: 'next-css-loader',
+              options: {},
+            },
+          ],
         }
       ],
     }
   }
   const webpackConfig = webpack(config);
   expect(webpackConfig.module.rules[0].use[1].options.configFile).toBe(BABEL_CONFIG_PATH)
+  expect(webpackConfig.module.rules[1].use[1].options.configFile).toBe(BABEL_CONFIG_PATH)
+  // Ensure the non-babel loader has not been touched
+  expect(webpackConfig.module.rules[2].use[1].options.configFile).toBe(undefined)
 });

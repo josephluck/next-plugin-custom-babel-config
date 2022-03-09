@@ -1,6 +1,6 @@
 {
   "name": "next-plugin-custom-babel-config",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Adds the ability to resolve a custom babel config file when using next.js",
   "main": "index.js",
   "license": "MIT",
